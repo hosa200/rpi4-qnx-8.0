@@ -1,0 +1,42 @@
+# SDL libraries
+
+lib/libSDL2.so=lib/libSDL2.so
+lib/libSDL2-2.0.so=lib/libSDL2-2.0.so
+lib/libSDL2-2.0.so.0=lib/libSDL2-2.0.so.0
+lib/libSDL2_2.0.so.0.3200.8=lib/libSDL2-2.0.so.0.3200.8
+lib/libSDL2_image.so=lib/libSDL2_image.so
+lib/libSDL2_image-2.0.so=lib/libSDL2_image-2.0.so
+lib/libSDL2_image-2.0.so.0=lib/libSDL2_image-2.0.so.0
+lib/libSDL2_image-2.0.so.0.900.0=lib/libSDL2_image-2.0.so.0.800.8
+#lib/libSDL2_mixer.so=lib/libSDL2_mixer.so
+#lib/libSDL2_mixer-2.0.so=lib/libSDL2_mixer-2.0.so
+#lib/libSDL2_mixer-2.0.so.0=lib/libSDL2_mixer-2.0.so.0
+#lib/libSDL2_mixer-2.0.so.700=lib/libSDL2_mixer-2.0.so.700
+lib/libSDL2_net.so=lib/libSDL2_net.so
+lib/libSDL2_net-2.0.so.0=lib/libSDL2_net-2.0.so.0
+lib/libSDL2_net-2.0.so.0.300.0=lib/libSDL2_net-2.0.so.0.200.0
+lib/libSDL2_ttf.so=lib/libSDL2_ttf.so
+lib/libSDL2_ttf-2.0.so=lib/libSDL2_ttf-2.0.so
+lib/libSDL2_ttf-2.0.so.0=lib/libSDL2_ttf-2.0.so.0
+lib/libSDL2_ttf-2.0.so.0.2500.0=lib/libSDL2_ttf-2.0.so.0.2400.0
+
+# SDL utilities / games
+
+bin/showanim=bin/showanim
+bin/showfont=bin/showfont
+bin/showimage=bin/showimage
+
+# SDL dependencies
+lib/__LIBPNG16__=usr/lib/__LIBPNG16__
+lib/libjpeg.so.9=lib/libjpeg.so.9
+lib/libtiff.so.5=usr/lib/libtiff.so.5
+[type=link] lib/libpng16.so=__LIBPNG16__
+
+# pattern-race
+[perms=0755] bin/patrace={
+#!/bin/bash
+PATRACE_DIR=/system/opt/patrace
+cd $PATRACE_DIR
+./patrace
+}
+opt/patrace=share/patrace

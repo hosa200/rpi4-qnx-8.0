@@ -1,0 +1,16 @@
+################################################################
+# RPi Bootup Animation
+################################################################
+[type=file uid=0 gid=0 perms=0755] bin/rpi-lottie=usr/local/bin/rpi-lottie
+[type=file uid=0 gid=0 perms=0444] lib/libgomp.so.1.0.0=lib/libgomp.so.1.0.0
+[type=file uid=0 gid=0 perms=0444] lib/libthorvg.so.1.0.0=usr/local/lib/libthorvg.so.1.0.0
+
+[type=file uid=0 gid=0 perms=0444] etc/startup/qnx.json=animations/qnx.json
+[type=file uid=0 gid=0 perms=0444] etc/startup/gears.json=animations/gears.json
+
+[type=link] lib/libthorvg.so.1=libthorvg.so.1.0.0
+[type=link] lib/libthorvg.so=libthorvg.so.1
+[type=link] lib/libgomp.so.1=libgomp.so.1.0.0
+[type=link] lib/libgomp.so=libgomp.so.1
+
+

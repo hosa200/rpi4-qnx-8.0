@@ -1,0 +1,16 @@
+# post_start.~98.install_pip
+# Ensure pip3 is installed on first boot
+
+CHECK_PIP3=`which pip3`
+
+if [[ -z "$CHECK_PIP3" ]]; then
+    python -m ensurepip > /dev/null 2>&1
+    rc=$?
+    if [[ rc -ne 0 ]]; then
+        echo "ERROR: pip3 failed to install."
+    else
+        echo "pip3 installed successfully."
+    fi
+    echo " "
+fi
+

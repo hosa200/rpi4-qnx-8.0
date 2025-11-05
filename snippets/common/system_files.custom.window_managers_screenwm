@@ -1,0 +1,102 @@
+# screenwm
+[type=file uid=0 gid=0 perms=0755] bin/screenwm={
+#/bin/sh
+SCREENWM_DIR=/system/opt/screenwm
+cd $SCREENWM_DIR
+./screenwm
+}
+[type=file uid=0 gid=0 perms=0755] opt/screenwm/screenwm=bin/screenwm
+[type=file uid=0 gid=0 perms=0755] opt/screenwm/theme.so=lib/libphoton.so.1
+
+[type=file uid=0 gid=0 perms=0644] opt/screenwm/screenwm.ini={
+[General]
+background=/system/etc/images/background_1080p.png
+taskbar=bottom
+screenIdle=20
+}
+
+[type=file uid=0 gid=0 perms=0644] opt/screenwm/terminal.desktop={
+[Desktop Entry]
+Name=Terminal
+Exec=/system/bin/st /system/etc/st_boot.sh
+Icon=/system/share/icons/terminal_black.png
+Categories=Utilities
+}
+
+[type=file uid=0 gid=0 perms=0644] opt/screenwm/gears.desktop={
+[Desktop Entry]
+Name=Gears
+GenericName=gles2-gears
+Exec=/system/bin/gles2-gears
+Icon=/system/share/icons/gles2-gears.png
+Categories=Utilities
+}
+
+[type=file uid=0 gid=0 perms=0644] opt/screenwm/maze.desktop={
+[Desktop Entry]
+Name=Maze
+GenericName=gles2-maze
+Exec=/system/bin/gles2-maze
+Icon=/system/share/icons/gles2-maze.png
+Categories=Utilities
+}
+
+[type=file uid=0 gid=0 perms=0644] opt/screenwm/camera.desktop={
+[Desktop Entry]
+Name=Camera_Viewfinder
+GenericName=camera_example
+Exec=/system/bin/camera_example3_viewfinder
+Icon=/system/share/icons/google/video_icon_black.png
+Categories=Utilities
+}
+
+[type=file uid=0 gid=0 perms=0644] opt/screenwm/gpioctrl.desktop={
+[Desktop Entry]
+Name=GPIO-Controller
+GenericName=gpioctrl
+Exec=/system/bin/gpioctrl
+Icon=/system/share/icons/gpioctrl.png
+Categories=Utilities
+}
+
+[type=file uid=0 gid=0 perms=0644] opt/screenwm/patrace.desktop={
+[Desktop Entry]
+Name=Pattern Race
+GenericName=patrace
+Exec=/system/bin/patrace
+Icon=/system/share/icons/patrace.png
+Categories=Games
+}
+
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/images/qnx_logo.png=images/blank_32x32.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/images/browser.png=usr/share/screenwm/images/browser.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/images/clock.png=usr/share/screenwm/images/clock.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/images/cross.bmp=usr/share/screenwm/images/cross.bmp
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/images/down_arrow.bmp=usr/share/screenwm/images/down_arrow.bmp
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/images/gears.png=usr/share/screenwm/images/gears.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/images/hand.bmp=usr/share/screenwm/images/hand.bmp
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/images/ibeam.bmp=usr/share/screenwm/images/ibeam.bmp
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/images/left_arrow.bmp=usr/share/screenwm/images/left_arrow.bmp
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/images/net.png=usr/share/screenwm/images/net.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/images/right_arrow.bmp=usr/share/screenwm/images/right_arrow.bmp
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/images/smoky_close.png=usr/share/screenwm/images/smoky_close.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/images/smoky_close_pressed.png=usr/share/screenwm/images/smoky_close_pressed.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/images/smoky_max.png=usr/share/screenwm/images/smoky_max.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/images/smoky_max_pressed.png=usr/share/screenwm/images/smoky_max_pressed.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/images/smoky_min.png=usr/share/screenwm/images/smoky_min.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/images/smoky_min_pressed.png=usr/share/screenwm/images/smoky_min_pressed.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/images/smoky_min_pressed.png=usr/share/screenwm/images/smoky_min_pressed.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/images/temp.png=usr/share/screenwm/images/temp.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/images/terminal.png=usr/share/screenwm/images/terminal.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/themes/photon/photon_close_inactive.png=usr/share/screenwm/themes/photon/photon_close_inactive.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/themes/photon/photon_close.png=usr/share/screenwm/themes/photon/photon_close.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/themes/photon/photon_close_pressed.png=usr/share/screenwm/themes/photon/photon_close_pressed.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/themes/photon/photon_icon.png=usr/share/screenwm/themes/photon/photon_icon.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/themes/photon/photon_max_inactive.png=usr/share/screenwm/themes/photon/photon_max_inactive.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/themes/photon/photon_max.png=usr/share/screenwm/themes/photon/photon_max.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/themes/photon/photon_max_pressed.png=usr/share/screenwm/themes/photon/photon_max_pressed.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/themes/photon/photon_min_inactive.png=usr/share/screenwm/themes/photon/photon_min_inactive.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/themes/photon/photon_min.png=usr/share/screenwm/themes/photon/photon_min.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/themes/photon/photon_min_pressed.png=usr/share/screenwm/themes/photon/photon_min_pressed.png
+[type=file uid=0 gid=0 perms=0444] opt/screenwm/themes/photon/photon_right_title_edge.png=usr/share/screenwm/themes/photon/photon_right_title_edge.png
+

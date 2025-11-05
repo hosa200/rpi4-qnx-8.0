@@ -1,0 +1,143 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index afd4e13eb..3a3705df2 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1479,15 +1479,12 @@ elseif(UNIX AND NOT APPLE AND NOT RISCOS AND NOT HAIKU)
+         file(GLOB AIX_AUDIO_SOURCES ${SDL2_SOURCE_DIR}/src/audio/paudio/*.c)
+         list(APPEND SOURCE_FILES ${AIX_AUDIO_SOURCES})
+         set(HAVE_SDL_AUDIO TRUE)
+-    elseif(QNX)
+-        set(SDL_AUDIO_DRIVER_QSA 1)
+-        file(GLOB QSA_AUDIO_SOURCES ${SDL2_SOURCE_DIR}/src/audio/qsa/*.c)
+-        list(APPEND SOURCE_FILES ${QSA_AUDIO_SOURCES})
+-        list(APPEND EXTRA_LIBS asound)
+-        set(HAVE_SDL_AUDIO TRUE)
+     endif()
+     CheckOSS()
+     CheckALSA()
++    if(QNX AND NOT TARGET ALSA::ALSA)
++      set(HAVE_SDL_AUDIO FALSE)
++    endif()
+     CheckJACK()
+     CheckPipewire()
+     CheckPulseAudio()
+diff --git a/src/audio/alsa/SDL_alsa_audio.c b/src/audio/alsa/SDL_alsa_audio.c
+index 3e0e7acaf..cc1f53d71 100644
+--- a/src/audio/alsa/SDL_alsa_audio.c
++++ b/src/audio/alsa/SDL_alsa_audio.c
+@@ -505,6 +505,14 @@ static int ALSA_set_buffer_size(_THIS, snd_pcm_hw_params_t *params)
+         return -1;
+     }
+ 
++#if defined(__QNXNTO__)
++    /* Re-fetch the period size now that parameters are finalized */
++    status = ALSA_snd_pcm_hw_params_get_period_size(hwparams, &persize, 0);
++    if (status < 0) {
++        return -1;
++    }
++#endif
++
+     this->spec.samples = persize;
+ 
+     /* This is useful for debugging */
+diff --git a/src/thread/pthread/SDL_systhread.c b/src/thread/pthread/SDL_systhread.c
+index 210567346..1b31c79ee 100644
+--- a/src/thread/pthread/SDL_systhread.c
++++ b/src/thread/pthread/SDL_systhread.c
+@@ -255,7 +255,12 @@ int SDL_SYS_SetThreadPriority(SDL_ThreadPriority priority)
+     if (priority == SDL_THREAD_PRIORITY_LOW) {
+         sched.sched_priority = sched_get_priority_min(policy);
+     } else if (priority == SDL_THREAD_PRIORITY_TIME_CRITICAL) {
++#if defined(__QNXNTO__)
++        /* io_snd complains about a client thread having priority >= 49 */
++        sched.sched_priority = 48;
++#else
+         sched.sched_priority = sched_get_priority_max(policy);
++#endif
+     } else {
+         int min_priority = sched_get_priority_min(policy);
+         int max_priority = sched_get_priority_max(policy);
+diff --git a/src/video/qnx/gl.c b/src/video/qnx/gl.c
+index e6e999a60..1ba745e08 100644
+--- a/src/video/qnx/gl.c
++++ b/src/video/qnx/gl.c
+@@ -200,6 +200,7 @@ SDL_GLContext glCreateContext(_THIS, SDL_Window *window)
+     eglMakeCurrent(egl_disp, surface, surface, context);
+ 
+     impl->surface = surface;
++    impl->context = context;
+     return context;
+ }
+ 
+@@ -228,6 +229,37 @@ int glSwapWindow(_THIS, SDL_Window *window)
+ {
+     /* !!! FIXME: should we migrate this all over to use SDL_egl.c? */
+     window_impl_t   *impl = (window_impl_t *)window->driverdata;
++    {
++        if (impl->resize) {
++            EGLSurface surface;
++            struct {
++                EGLint render_buffer[2];
++                EGLint none;
++            } egl_surf_attr = {
++                .render_buffer = { EGL_RENDER_BUFFER, EGL_BACK_BUFFER },
++                .none = EGL_NONE
++            };
++
++            if (eglMakeCurrent(egl_disp, NULL, NULL, impl->context) != EGL_TRUE) {
++                return -1;
++            }
++            if (eglDestroySurface(egl_disp, impl->surface) != EGL_TRUE) {
++            }
++
++            surface = eglCreateWindowSurface(egl_disp, impl->conf, impl->window,
++                                     (EGLint *)&egl_surf_attr);
++            if (surface == EGL_NO_SURFACE) {
++                return -1;
++            }
++
++            if (eglMakeCurrent(egl_disp, surface, surface, impl->context) != EGL_TRUE) {
++                return -1;
++            }
++
++            impl->surface = surface;
++            impl->resize = 0;
++        }
++    }
+     return eglSwapBuffers(egl_disp, impl->surface) == EGL_TRUE ? 0 : -1;
+ }
+ 
+diff --git a/src/video/qnx/sdl_qnx.h b/src/video/qnx/sdl_qnx.h
+index 65e07988e..a727a5e7b 100644
+--- a/src/video/qnx/sdl_qnx.h
++++ b/src/video/qnx/sdl_qnx.h
+@@ -31,6 +31,8 @@ typedef struct
+     screen_window_t window;
+     EGLSurface      surface;
+     EGLConfig       conf;
++    SDL_GLContext   context;
++    int             resize;
+ } window_impl_t;
+ 
+ extern void handleKeyboardEvent(screen_event_t event);
+diff --git a/src/video/qnx/video.c b/src/video/qnx/video.c
+index 924eaa307..aa4bd4b15 100644
+--- a/src/video/qnx/video.c
++++ b/src/video/qnx/video.c
+@@ -244,9 +244,16 @@ static void setWindowSize(_THIS, SDL_Window *window)
+     size[0] = window->w;
+     size[1] = window->h;
+ 
++    if (screen_destroy_window_buffers(impl->window) < 0) {
++        return;
++    }
++    impl->resize = 1;
++
+     screen_set_window_property_iv(impl->window, SCREEN_PROPERTY_SIZE, size);
+     screen_set_window_property_iv(impl->window, SCREEN_PROPERTY_SOURCE_SIZE,
+                                   size);
++
++    screen_create_window_buffers(impl->window, (window->flags & SDL_WINDOW_OPENGL) ? 2 : 1);
+ }
+ 
+ /**

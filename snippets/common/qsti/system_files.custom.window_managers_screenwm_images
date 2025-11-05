@@ -1,0 +1,4 @@
+# Override the default qnx_logo.png image with the one for the QSTI
+# The "-dupignore" bit is to ensure that this one overrides the one
+# specified in the base system_files.custom.window_managers_screenwm
+[-dupignore type=file uid=0 gid=0 perms=0444] opt/screenwm/images/qnx_logo.png=images/qsti/qnx_logo.png

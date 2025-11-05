@@ -1,0 +1,9 @@
+# Demo launcher
+[type=file uid=0 gid=0 perms=0644] opt/screenwm/vkcube.desktop={
+[Desktop Entry]
+Name=Vulkan Cube
+GenericName=vkcubepp
+Exec=/system/bin/vkcubepp
+Icon=/system/share/icons/vkcube.png
+Categories=Utilities
+}

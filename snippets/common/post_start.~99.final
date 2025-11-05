@@ -1,0 +1,13 @@
+# post_start.~99.final
+# Final set of commands executed from post_startup.sh
+# 
+# This should always be last
+
+if [ ! -d /dev/screen ]; then
+    echo ""
+    echo "*** Failed to launch screen. No graphics contents will be available. ***"
+    echo ""
+fi
+
+cat /data/var/etc/qnx800_welcome_msg.txt
+

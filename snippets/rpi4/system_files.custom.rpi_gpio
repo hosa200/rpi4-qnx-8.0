@@ -1,0 +1,17 @@
+[type=file uid=0 gid=0 perms=0755] bin/rpi_gpio=sbin/rpi_gpio
+[type=dir uid=0 gid=0 dperms=0755] lib/python
+
+[type=file uid=0 gid=0 perms=0755] lib/python3.11/rpi_gpio.so=usr/lib/python3.11/rpi_gpio.so
+[type=file uid=0 gid=0 perms=0755] lib/python3.11/smbus.so=usr/lib/python3.11/smbus.so
+
+[type=dir uid=0 gid=0 dperms=0755] opt/gpioctrl
+[type=file uid=0 gid=0 perms=0755] opt/gpioctrl/gpioctrl=bin/gpioctrl
+opt/gpioctrl/images=usr/share/gpioctrl/images
+[type=file uid=0 gid=0 perms=0755] bin/gpioctrl={
+#!/bin/bash
+
+cd /system/opt/gpioctrl
+./gpioctrl
+}
+[type=dir uid=0 gid=0 dperms=0755] gpio
+[type=file uid=0 gid=0 perms=0755] gpio/led.py=gpio/led.py

@@ -1,0 +1,16 @@
+# post_start.~20.graphics
+# Start screen and the graphics stack
+
+# update the font cache
+#fc-cache -Ef
+if [ ! -e /data/var/fontconfig/CACHEDIR.TAG ]; then
+   FONTCONFIG_FILE=/system/etc/fontconfig/fonts.conf fc-cache &
+fi
+
+echo '---> Starting Screen...'
+rpi-lottie -d 3 -f /system/etc/startup/qnx.json
+chown __SCREEN_ID__ /dev/io-hid/io-hid
+screen -u __SCREEN_ID__:__SCREEN_ID__ -c /system/lib/graphics/rpi4-drm/graphics-rpi4.conf >/dev/null 2>&1
+echo drop_privileges > /dev/screen/command
+waitfor /dev/screen/
+

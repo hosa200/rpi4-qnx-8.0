@@ -1,0 +1,44 @@
+# post_start.~10.hardware
+# Start basic HW functionality
+
+echo '---> Starting USB...'
+/proc/boot/usb_start.sh
+# devb-umass mem name=below1G blk memory=below1G cam pnp
+usblauncher_otg -0 -l
+
+io-hid -dusb
+waitfor /dev/io-hid/io-hid
+
+echo '---> Starting I2C bus...'
+i2c-bcm2711 -p0xfe205000 --b100000 --u0
+waitfor /dev/i2c0
+i2c-bcm2711 -p0xfe804000 --b100000 --u1
+waitfor /dev/i2c1
+
+echo "---> Starting SPI master driver ..."
+on -u 0:524 spi-bcm2711 -c /system/etc/config/spi/spi.conf
+waitfor /dev/io-spi
+
+echo '---> Starting RPi drivers...'
+rpi_mbox -U 523:523 &
+waitfor /dev/mailbox
+
+rpi_gpio -u 522:522 &
+waitfor /dev/gpio
+
+rpi_thermal &
+waitfor /dev/thermal
+
+# Set GPIO  for CSI2 cameras
+gpio-bcm2711 set 44 a1 # Set pin 44 to SDA0
+gpio-bcm2711 set 45 a1 # Set pin 45 to SCL0
+
+gpio-bcm2711 set 0 ip pd # Pull down pin 0
+gpio-bcm2711 set 1 ip pd # Pull down pin 1
+
+# Start VCHIQ and VCSM modules for ISP debayering
+bcm-rpi4-vchiq &
+waitfor /dev/vchiq
+bcm-rpi4-vcsm &
+waitfor /dev/vcsm
+

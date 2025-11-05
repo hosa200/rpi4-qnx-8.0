@@ -1,0 +1,29 @@
+    # ifs_env.~10.custom
+    # General setup required to be done in the IFS
+    # before most things get started
+
+    # general symlinks for FHS compatibility
+    procmgr_symlink /system /usr
+    procmgr_symlink /data/home /home
+    procmgr_symlink /data/home/root /root
+    procmgr_symlink /system/etc/terminfo /usr/share/terminfo
+
+    procmgr_symlink /system/bin/bash /bin/bash
+    procmgr_symlink /system/bin/login /bin/login
+
+    # SDP / mkqnximage compatibility symlinks
+    procmgr_symlink /system/fonts /usr/share/fonts
+    procmgr_symlink /system/bin/sshd-session /usr/libexec/sshd-session
+
+    # Demolauncher has hardcoded the font path
+    procmgr_symlink /system/fonts /system/share/fonts
+
+    ALSA_CONFIG_PATH=/system/etc/alsa/alsa.conf
+    FONTCONFIG_PATH=/system/etc/fontconfig
+    MM_INIT=/system/lib/dll/mmedia
+    OMXIL_COMPONENT_PATH=/system/lib/dll/omxil
+    TERM=xterm-256color
+    TERMINFO=/system/etc/terminfo
+    TZDIR=/system/share/zoneinfo
+    VIMRUNTIME=/system/share/vim/vim91
+

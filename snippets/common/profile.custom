@@ -1,0 +1,16 @@
+# local/snippets/profile.custom
+# Contents are included at the end of /etc/profile
+export PATH=/system/local/bin:/system/bin:__IFS_PATH__
+export LD_LIBRARY_PATH=/system/local/lib:/system/lib:/system/lib/dll:__IFS_PATH__
+
+export ALSA_CONFIG_PATH=/system/etc/alsa/alsa.conf
+export FONTCONFIG_PATH=/system/etc/fontconfig
+export MM_INIT=/system/lib/dll/mmedia
+export OMXIL_COMPONENT_PATH=/system/lib/dll/omxil
+export PS1="\\u@\\h:\\w\\\\$ "
+export TERM=xterm-256color
+export TERMINFO=/system/etc/terminfo
+export TZDIR=/system/share/zoneinfo
+export VIMRUNTIME=/system/share/vim/vim91
+
+cat /etc/qnx800_welcome_msg.txt

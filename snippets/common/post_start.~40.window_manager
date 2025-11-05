@@ -1,0 +1,17 @@
+# post_start.~40.window_manager
+# Start the window manager and demo launcher.
+
+if [ -d /dev/screen ]; then
+    echo '---> Starting Window Manager...'
+
+    # enable lines below to run the demolauncher and fullscreen
+    # window manager
+    echo "Using Full Screen Window Manager..."
+    fullscreen-winmgr &
+    demolauncher -a /system/etc/desktop_files &
+
+    # enable lines below to run the screenwm window manager
+    #echo "Using screenwm Window Manager..."
+    #screenwm &
+fi
+

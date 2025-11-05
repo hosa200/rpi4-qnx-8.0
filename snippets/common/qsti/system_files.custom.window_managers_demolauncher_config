@@ -1,0 +1,36 @@
+# Configuration for demolauncher
+#
+# This can be overridden by specific targets or build types (QSTI vs. CTI)
+
+# Images
+[type=file uid=0 gid=0 perms=0444] etc/images/background_720p.png=images/qsti/background_720p.png
+[type=file uid=0 gid=0 perms=0444] etc/images/background_1080p.png=images/qsti/background_1080p.png
+[type=file uid=0 gid=0 perms=0444] share/icons/power.png=icons/icons_qsti/power.png
+[type=file uid=0 gid=0 perms=0444] share/icons/icon_plus_solid.png=icons/icons_qsti/icon_plus_solid.png
+
+# Configure the three 'buttons'
+[type=file uid=0 gid=0 perms=0644] etc/desktop_files/middle.desktop={
+[Desktop Entry]
+Name=Terminal
+Exec=/system/bin/st /system/etc/st_boot.sh
+Icon=/system/share/icons/power.png
+Categories=Utilities
+}
+
+[type=file uid=0 gid=0 perms=0644] etc/desktop_files/right.desktop={
+[Desktop Entry]
+Name=Placeholder
+Exec=true
+Icon=/system/share/icons/icon_plus_solid.png
+Categories=Utilities
+
+}
+
+[type=file uid=0 gid=0 perms=0644] etc/desktop_files/left.desktop={
+[Desktop Entry]
+Name=Placeholder
+Exec=true
+Icon=/system/share/icons/icon_plus_solid.png
+Categories=Utilities
+}
+

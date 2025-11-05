@@ -1,0 +1,121 @@
+# RPi GPU
+[type=file uid=0 gid=0 perms=0555] bin/drm-rpi4=sbin/drm-rpi4
+[type=file uid=0 gid=0 perms=0444] lib/graphics/rpi4-drm/gpu_drm-rpi4.so=usr/lib/graphics/rpi4-drm/gpu_drm-rpi4.so
+[type=file uid=0 gid=0 perms=0444] lib/graphics/rpi4-drm/libWFDrpi4-drm.so=usr/lib/graphics/rpi4-drm/libWFDrpi4-drm.so
+[type=file uid=0 gid=0 perms=0444] lib/graphics/rpi4-drm/libWFDrpi4-drm-atomic.so=usr/lib/graphics/rpi4-drm/libWFDrpi4-drm-atomic.so
+[type=file uid=0 gid=0 perms=0644] lib/graphics/rpi4-drm/graphics-rpi4.conf=usr/lib/graphics/rpi4-drm/graphics-rpi4.conf
+[type=file uid=0 gid=0 perms=0444] lib/graphics/rpi4-drm/libEGL-mesa.so=usr/lib/graphics/rpi4-drm/libEGL-mesa.so
+[type=file uid=0 gid=0 perms=0444] lib/graphics/rpi4-drm/libGLESv2-mesa.so=usr/lib/graphics/rpi4-drm/libGLESv2-mesa.so
+[type=file uid=0 gid=0 perms=0444] lib/graphics/rpi4-drm/libglapi-mesa.so=usr/lib/graphics/rpi4-drm/libglapi-mesa.so
+[type=file uid=0 gid=0 perms=0444] lib/graphics/rpi4-drm/libwfdcfg-rpi4-generic.so=usr/lib/graphics/rpi4-drm/libwfdcfg-rpi4-generic.so
+[type=file uid=0 gid=0 perms=0444] lib/graphics/rpi4-drm/v3d_dri.so=usr/lib/graphics/rpi4-drm/v3d_dri.so
+
+######################################################
+### Common Graphics Files
+######################################################
+etc/system/config/img.conf=etc/system/config/img.conf
+
+######################################################
+### Fonts
+######################################################
+[perms=0444] fonts=usr/share/fonts
+[perms=0444 -followlink] etc/fontconfig=etc/fontconfig
+# Add the standard mkqnximage fonts.conf
+[perms=0444] etc/fontconfig/fonts.conf=__TOOL_DIR__/inputs/fonts.conf
+lib/__LIBFREETYPE__=usr/lib/__LIBFREETYPE__
+lib/libfontconfig.so.1=usr/lib/libfontconfig.so.1
+[type=link] lib/libfreetype.so=__LIBFREETYPE__
+[type=link] lib/libfontconfig.so=libfontconfig.so.1
+
+
+bin/fc-cache=bin/fc-cache
+
+######################################################
+### Graphics - Screen
+######################################################
+bin/screen=sbin/screen
+bin/screencmd=bin/screencmd
+bin/screeninfo=bin/screeninfo
+bin/hidview=sbin/hidview
+
+lib/libscreen.so.1=usr/lib/libscreen.so.1
+lib/libscrmem.so.1=lib/libscrmem.so.1
+lib/libmemobj.so.1=lib/libmemobj.so.1
+lib/libdrm.so.1=usr/lib/libdrm.so.1
+lib/libWFD.so.1=usr/lib/libWFD.so.1
+lib/dll/screen-rpi4drm.so=lib/dll/screen-rpi4drm.so
+share/keyboard/en_US_101.kbd=usr/share/keyboard/en_US_101.kbd
+
+[type=link] lib/libscreen.so=libscreen.so.1
+[type=link] lib/libscrmem.so=libscrmem.so.1
+[type=link] lib/libmemobj.so=libmemobj.so.1
+[type=link] lib/libdrm.so=libdrm.so.1
+[type=link] lib/libWFD.so=libWFD.so.1
+
+########################################
+## SDL (image only)
+########################################
+lib/__LIBPNG16__=usr/lib/__LIBPNG16__
+lib/libjpeg.so.9=lib/libjpeg.so.9
+lib/libtiff.so.5=usr/lib/libtiff.so.5
+[type=link] lib/libpng16.so=__LIBPNG16__
+
+### EGL & Vulkan
+lib/libEGL.so.1=usr/lib/libEGL.so.1
+lib/libGLESv2.so.1=usr/lib/libGLESv2.so.1
+[type=link] lib/libEGL.so=libEGL.so.1
+[type=link] lib/libGLESv2.so=libGLESv2.so.1
+
+[type=file uid=0 gid=0 perms=0555] lib/graphics/rpi4-drm/broadcom_icd.json=usr/lib/graphics/rpi4-drm/broadcom_icd.json
+[type=file uid=0 gid=0 perms=0555] bin/vulkaninfo=usr/bin/vulkaninfo
+[type=file uid=0 gid=0 perms=0444] lib/libvulkan.so.1=usr/lib/libvulkan.so.1
+[type=link uid=0 gid=0 perms=0755] lib/libvulkan.so=libvulkan.so.1
+[type=file uid=0 gid=0 perms=0444] lib/graphics/rpi4-drm/libvulkan_broadcom.so=usr/lib/graphics/rpi4-drm/libvulkan_broadcom.so
+[type=file uid=0 gid=0 perms=0555] bin/vkcubepp=usr/bin/vkcubepp
+
+########################################
+## libraries
+########################################
+lib/libgestures.so.1=lib/libgestures.so.1
+lib/libinputevents.so.1=lib/libinputevents.so.1
+lib/libkalman.so.1=lib/libkalman.so.1
+lib/libimg.so.1=lib/libimg.so.1
+
+[type=link] lib/libgestures.so=libgestures.so.1
+[type=link] lib/libinputevents.so=libinputevents.so.1
+[type=link] lib/libkalman.so=libkalman.so.1
+[type=link] lib/libimg.so=libimg.so.1
+
+########################################
+## DLLs
+########################################
+lib/dll/screen-debug.so=lib/dll/screen-debug.so
+lib/dll/screen-gles2blt.so=lib/dll/screen-gles2blt.so
+lib/dll/screen-sw.so=lib/dll/screen-sw.so
+lib/dll/screen-stdbuf.so=lib/dll/screen-stdbuf.so
+
+#########################################
+## more libraries
+#########################################
+lib/libswblit.so.1=usr/lib/libswblit.so.1
+[type=link] lib/libswblit.so=libswblit.so.1
+
+#############################################
+### Image Loading
+#############################################
+lib/dll/img_codec_bmp.so=lib/dll/img_codec_bmp.so
+lib/dll/img_codec_gif.so=lib/dll/img_codec_gif.so
+lib/dll/img_codec_jpg.so=lib/dll/img_codec_jpg.so
+lib/dll/img_codec_png.so=lib/dll/img_codec_png.so
+lib/dll/img_codec_sgi.so=lib/dll/img_codec_sgi.so
+lib/dll/img_codec_tga.so=lib/dll/img_codec_tga.so
+lib/dll/img_codec_tif.so=lib/dll/img_codec_tif.so
+
+
+#############################################
+### Input
+#############################################
+bin/io-hid=sbin/io-hid
+lib/dll/devh-usb.so=lib/dll/devh-usb.so
+lib/libhiddi.so.1=lib/libhiddi.so.1
+[type=link] lib/libhiddi.so=libhiddi.so.1

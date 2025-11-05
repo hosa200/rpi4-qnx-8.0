@@ -1,0 +1,40 @@
+[type=dir uid=1000 gid=1000] home/qnxuser/.local/bin
+[type=dir uid=1000 gid=1000] home/qnxuser/.local/lib
+[type=dir uid=1000 gid=1000] home/qnxuser/bin
+[type=dir uid=1000 gid=1000] home/qnxuser/lib
+[type=dir uid=1000 gid=1000] home/qnxuser/lib/dll
+[type=dir] home/root/.local/bin
+[type=dir] home/root/.local/lib
+[type=dir] home/root/bin
+[type=dir] home/root/lib
+[type=dir] home/root/lib/dll
+
+[uid=1000 gid=1000] home/qnxuser/.profile = {
+export PATH=/data/home/qnxuser/.local/bin:/data/home/qnxuser/bin:$PATH
+export LD_LIBRARY_PATH=/data/home/qnxuser/.local/lib:/data/home/qnxuser/lib:$LD_LIBRARY_PATH
+}
+
+[uid=1000 gid=1000] home/qnxuser/.vimrc = {
+source $VIMRUNTIME/defaults.vim
+set background=dark
+}
+
+[uid=1000 gid=1000] home/qnxuser/.curlrc = {
+cacert = /etc/ssl/certs/cacert.pem
+}
+
+home/root/.profile = {
+export PATH=/data/home/root/.local/bin:/$PATH
+export LD_LIBRARY_PATH=/data/home/root/.local/lib:$LD_LIBRARY_PATH
+}
+
+home/root/.vimrc = {
+source $VIMRUNTIME/defaults.vim
+set background=dark
+}
+
+
+home/root/.curlrc = {
+cacert = /etc/ssl/certs/cacert.pem
+}
+
