@@ -27,6 +27,7 @@ endif
 include ../targets/$(TARGET)/variables.mk
 
 # Versions/SHAs of things to download
+GTK_SHA=4461ac64a3a5389193331ac8941d44c266cf3e3b
 BASH_SHA=e1c760dfe65a770fb5cc32f8c4c75d52a1b93ee5
 BUILD_FILES_SHA=3e650253c9f1ce37efd82055c4241cf3c46ec302
 CAIRO_SHA=0a19c554acc0340f7a362119a72dec026440f82a
@@ -51,7 +52,7 @@ STAGE_TARGET=$(STAGE_ROOT)/$(QNX_ARCHDIR)
 
 .PHONY: all clean
 
-PKGS = bash vim cairo simple-terminal screenwm SDL SDL_image SDL_ttf SDL_net pattern-race
+PKGS = bash vim gtk cairo simple-terminal screenwm SDL SDL_image SDL_ttf SDL_net pattern-race 
 ifneq ($(filter rpi4,$(TARGET)),)
 PKGS += rpi-gpio rpi-mailbox rpi-thermal thorvg qnx-lottie_thorvg
 endif
@@ -62,6 +63,18 @@ source/build-files-ready:
 	cd source && git clone https://github.com/qnx-ports/build-files.git
 	cd source/build-files && git checkout $(BUILD_FILES_SHA)
 	cd source && git clone https://github.com/mesonbuild/meson.git -b $(MESON_VERSION)
+	touch $@
+
+source/gtk-ready:
+	mkdir -p source
+	cd source && git clone https://github.com/qnx-ports/gtk.git
+	cd source/gtk && git checkout $(BASH_SHA)
+	touch $@
+source/gtk-built-$(QNX_ARCH): source/gtk-ready source/build-files-ready
+	QCONF_OVERRIDE=$(PWD)/qconf-override.mk \
+	CPULIST=$(QNX_ARCH) \
+	QNX_ARCH=$(QNX_ARCH) \
+	QNX_PROJECT_ROOT="$(PWD)/source/gtk" make -C source/build-files/ports/gtk install -j4
 	touch $@
 
 source/bash-ready:
