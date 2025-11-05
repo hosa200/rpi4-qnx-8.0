@@ -44,6 +44,7 @@ SDL_IMAGE_VERSION=release-2.8.8
 SDL_NET_VERSION=release-2.2.0
 SDL_TTF_VERSION=release-2.24.0
 VIM_VERSION=v9.1.1198
+MESON_gtk=110642dd7
 
 QCONF_OVERRIDE=$(PWD)/qconf-override.mk
 STAGE_ROOT=$(PWD)/stage/nto
@@ -59,17 +60,39 @@ endif
 all: $(foreach p,$(PKGS),source/$(p)-built-$(QNX_ARCH))
 
 source/build-files-ready:
-	mkdir -p source
-	cd source && git clone https://github.com/qnx-ports/build-files.git
-	cd source/build-files && git checkout $(BUILD_FILES_SHA)
-	cd source && git clone https://github.com/mesonbuild/meson.git -b $(MESON_VERSION)
+	@if [ ! -d "source" ]; then \
+		echo "Creating source directory..."; \
+		mkdir -p source; \
+	fi
+	@if [ ! -d "source/build-files" ]; then \
+		echo "Cloning build-files repo..."; \
+		cd source && git clone https://github.com/qnx-ports/build-files.git; \
+	else \
+		echo "build-files repo already exists, skipping clone."; \
+	fi
+	@if [ ! -d "source/meson" ]; then \
+		echo "Cloning meson repo..."; \
+		cd source && git clone https://github.com/mesonbuild/meson.git -b ${MESON_VERSION}; \
+	else \
+		echo "meson repo already exists, skipping clone."; \
+	fi
+	#cd source/meson && git fetch && git checkout $(MESON_gtk)
 	touch $@
 
 source/gtk-ready:
-	mkdir -p source
-	cd source && git clone https://github.com/qnx-ports/gtk.git
-	cd source/gtk && git checkout $(BASH_SHA)
-	touch $@
+	@if [ ! -d "source" ]; then \
+		echo "Creating source directory..."; \
+		mkdir -p source; \
+	fi
+	@if [ ! -d "source/gtk" ]; then \
+		echo "Cloning gtk repo..."; \
+		cd source && git clone https://github.com/qnx-ports/gtk.git; \
+	else \
+		echo "gtk repo already exists, skipping clone."; \
+	fi
+	@cd source/gtk && git fetch && git checkout $(GTK_SHA)
+	@touch $@
+
 source/gtk-built-$(QNX_ARCH): source/gtk-ready source/build-files-ready
 	QCONF_OVERRIDE=$(PWD)/qconf-override.mk \
 	CPULIST=$(QNX_ARCH) \
