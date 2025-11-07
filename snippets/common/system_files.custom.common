@@ -185,3 +185,38 @@ share/keyboard=usr/share/keyboard
 [type=file uid=0 gid=0 perms=0755] bin/rtc=sbin/rtc
 [type=file uid=0 gid=0 perms=0755] bin/isend=bin/isend
 [type=file uid=0 gid=0 perms=0755] bin/isendrecv=bin/isendrecv
+
+################################################################
+# GTK APP
+################################################################
+bin/gtk_todo=aarch64le/usr/local/bin/gtk_todo
+bin/gtk_launcher=aarch64le/usr/local/bin/gtk_launcher
+
+lib/libglib-2.0.so.0=aarch64le/usr/local/lib/libglib-2.0.so.0
+lib/libbrotlidec.so.1=aarch64le/usr/local/lib/libbrotlidec.so.1
+lib/libcairo.so.2=aarch64le/usr/local/lib/libcairo.so.2
+lib/libepoxy.so.0=aarch64le/usr/local/lib/libepoxy.so.0
+lib/libpangoft2-1.0.so.0=aarch64le/usr/local/lib/libpangoft2-1.0.so.0
+lib/libgtk-4.so.1=aarch64le/usr/local/lib/libgtk-4.so.1
+lib/libpcre2-8.so.0=aarch64le/usr/local/lib/libpcre2-8.so.0
+lib/libgdk_pixbuf-2.0.so.0=aarch64le/usr/local/lib/libgdk_pixbuf-2.0.so.0
+lib/libharfbuzz.so.0=aarch64le/usr/local/lib/libharfbuzz.so.0
+lib/libpng16.so.16=aarch64le/usr/local/lib/libpng16.so.16
+lib/libbrotlicommon.so.1=aarch64le/usr/local/lib/libbrotlicommon.so.1
+lib/libgio-2.0.so.0=aarch64le/usr/local/lib/libgio-2.0.so.0
+lib/libpixman-1.so.0=aarch64le/usr/local/lib/libpixman-1.so.0
+lib/libpango-1.0.so.0=aarch64le/usr/local/lib/libpango-1.0.so.0
+lib/libexpat.so.1=aarch64le/usr/local/lib/libexpat.so.1
+lib/libffi.so.6=aarch64le/usr/local/lib/libffi.so.6
+lib/libtiff4.so=aarch64le/usr/local/lib/libtiff4.so
+lib/libcairo-gobject.so.2=aarch64le/usr/local/lib/libcairo-gobject.so.2
+lib/libgmodule-2.0.so.0=aarch64le/usr/local/lib/libgmodule-2.0.so.0
+lib/libcairo-script-interpreter.so.2=aarch64le/usr/local/lib/libcairo-script-interpreter.so.2
+lib/libgobject-2.0.so.0=aarch64le/usr/local/lib/libgobject-2.0.so.0
+lib/libfreetype.so.6=aarch64le/usr/local/lib/libfreetype.so.6
+lib/libgraphene-1.0.so.0=aarch64le/usr/local/lib/libgraphene-1.0.so.0
+lib/libfontconfig.so.1=aarch64le/usr/local/lib/libfontconfig.so.1
+lib/libz.so.1=aarch64le/usr/local/lib/libz.so.1
+lib/libjpeg.so.8.2.2=aarch64le/usr/local/lib/libjpeg.so.8.2.2
+lib/libpangocairo-1.0.so.0=aarch64le/usr/local/lib/libpangocairo-1.0.so.0
+lib/libfribidi.so.0=aarch64le/usr/local/lib/libfribidi.so.0

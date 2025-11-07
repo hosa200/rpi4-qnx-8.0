@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+QSC_CLT_PATH=~/qnx/qnxsoftwarecenter/qnxsoftwarecenter_clt
 ROOT_DIR := $(notdir $(CURDIR))
 ifndef QCONFIG
 QCONFIG=qconfig.mk

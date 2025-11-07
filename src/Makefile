@@ -76,7 +76,6 @@ source/build-files-ready:
 	else \
 		echo "meson repo already exists, skipping clone."; \
 	fi
-	#cd source/meson && git fetch && git checkout $(MESON_gtk)
 	touch $@
 
 source/gtk-ready:
@@ -85,20 +84,34 @@ source/gtk-ready:
 		mkdir -p source; \
 	fi
 	@if [ ! -d "source/gtk" ]; then \
-		echo "Cloning gtk repo..."; \
+		echo "Cloning GTK repo..."; \
 		cd source && git clone https://github.com/qnx-ports/gtk.git; \
 	else \
-		echo "gtk repo already exists, skipping clone."; \
+		echo "GTK repo already exists, skipping clone."; \
 	fi
 	@cd source/gtk && git fetch && git checkout $(GTK_SHA)
+	@if [ ! -d "source/gtk/Interactive-Smart-Display-for-Refrigerator" ]; then \
+		echo "Cloning Interactive-Smart-Display-for-Refrigerator repo..."; \
+		cd source/gtk && git clone https://github.com/hosa200/Interactive-Smart-Display-for-Refrigerator.git; \
+	else \
+		echo "Interactive-Smart-Display-for-Refrigerator repo already exists, skipping clone."; \
+	fi
 	@touch $@
+
 
 source/gtk-built-$(QNX_ARCH): source/gtk-ready source/build-files-ready
 	QCONF_OVERRIDE=$(PWD)/qconf-override.mk \
 	CPULIST=$(QNX_ARCH) \
 	QNX_ARCH=$(QNX_ARCH) \
-	QNX_PROJECT_ROOT="$(PWD)/source/gtk" make -C source/build-files/ports/gtk install -j4
+	QNX_PROJECT_ROOT="$(PWD)/source/gtk" \
+	make -C source/build-files/ports/gtk install -j4
+	QCONF_OVERRIDE=$(PWD)/qconf-override.mk \
+	CPULIST=$(QNX_ARCH) \
+	QNX_ARCH=$(QNX_ARCH) \
+	QNX_PROJECT_ROOT="$(PWD)/source/gtk/Interactive-Smart-Display-for-Refrigerator/gtk_app" \
+	make -C source/gtk/Interactive-Smart-Display-for-Refrigerator/gtk_app install -j4
 	touch $@
+
 
 source/bash-ready:
 	mkdir -p source
